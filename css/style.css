@@ -1,37 +1,90 @@
-* {
-  padding: 0;
+html,
+body {
   margin: 0;
+  height: 100%;
 }
-#game {
-  width: 500px;
-  height: 650px;
-  border: 2px solid black;
-  margin: auto;
-  overflow: hidden;
+
+@media (min-width: 768px) {
+  canvas {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 }
-#character {
-  width: 30px;
-  height: 30px;
-  /*background-color: rgba(207, 33, 193, 0.87);*/
-  /*border-radius: 50%;*/
-  position: relative;
-  top: 440px;
-  left: 190px;
-  z-index: 1000000;
+
+/* SPLASH SCREEN */
+
+.splash-screen-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  background-size: cover;
+  background-position: center;
+  /* height: 100%; */
+  min-height: 100%;
+  min-width: 100%;
+  /* background-clip: border-box; */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
-.block {
-  width: 500px;
-  height: 20px;
-  background-color: rgb(212, 185, 28);
-  position: relative;
-  top: 100px;
-  margin-top: -20px;
+
+.splash-screen-container h1 {
+  margin-top: 7rem;
+  margin-bottom: 7rem;
+  /* margin-bottom: 20rem; */
+  color: rgb(196, 141, 22);
+  font-size: 2.5rem;
+  letter-spacing: 0.2rem;
 }
-.hole {
-  width: 50px;
-  height: 20px;
+
+/* GAME SCREEN */
+/*  */
+
+.game-container {
   background-color: white;
-  position: relative;
-  top: 100px;
-  margin-top: -20px;
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/background-space3.jpg'); */
+  background-size: cover;
+  background-position: center;
+  margin: 0 20px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  /* flex: 1; */
+}
+
+.game-container header {
+  letter-spacing: 0.1em;
+  color: white;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.game-container .lives {
+  margin-right: 110px;
+  color: rgb(34, 228, 34);
+}
+
+.game-container .score {
+  color: rgb(230, 230, 29);
+}
+
+.game-container .label {
+  font-weight: bold;
+}
+
+.game-container .value {
+  font-style: italic;
+  border: 3px black;
+}
+
+/* never touch this one. it ruins the canvas */
+.game-container .canvas-container {
+  flex: 1;
+  /* border: 40px solid red; */
+  width: 900px;
 }
