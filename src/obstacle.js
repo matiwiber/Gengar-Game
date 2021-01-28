@@ -1,24 +1,26 @@
 "use strict";
+const imgObstacle = new Image();
+imgObstacle.src = "img/goldblock.png";
 
 class Obstacle {
-  constructor(canvas, ctx, speed, x, y) {
+  constructor(canvas, speed, x, width) {
     this.canvas = canvas;
     this.ctx = this.canvas.getContext("2d");
-    this.color = color;
+    // this.color = color;
     this.x = x;
     this.y = this.canvas.height + 30;
     this.speed = speed;
     this.width = width;
     this.height = 20;
     this.size = this.width * this.height;
+    // this.imgObstacle = new Image();s
+    // this.imgObstacle.src = "/img/goldBlock.png";
   }
 }
 
 Obstacle.prototype.draw = function () {
-  this.imgObstacle = new Image();
-  this.imgObstacle.src = "/img/goldBlock.png";
-  this.ctx.fillStyle = this.color;
-  this.ctx.drawImage(this.imgObstacle, this.x, this.y, this.width, this.height);
+  // this.ctx.fillStyle = this.color;
+  this.ctx.drawImage(imgObstacle, this.x, this.y, this.width, this.height);
 
   //this was for DOM
   // var block = document.createElement("div");
@@ -30,7 +32,7 @@ Obstacle.prototype.draw = function () {
 };
 
 Obstacle.prototype.updatePosition = function () {
-  this.x = this.x - this.speed;
+  this.y = this.y - this.speed;
 };
 
 Obstacle.prototype.isInsideScreen = function () {

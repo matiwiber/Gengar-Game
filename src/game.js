@@ -24,11 +24,13 @@ class Game {
     // this.bulletSound = new Audio("s");
     // this.gameOverSound = new Audio ('s');
     // this.gameOverMusic = new Audio ('');
-    // this.splasScreenMusic = new Audio ('');
+    this.splasScreenMusic = new Audio("songs/pokemonSong.mp3");
   }
 }
 
 Game.prototype.start = function () {
+  // this.splasScreenMusic.volume = 0.2;
+  // this.splasScreenMusic.play("songs/pokemonSong.mp3");
   // this.crashSound.currentTime = 0;
   // this.crashSound.volume = 0.4;
   // this.crashSound.play();
@@ -74,23 +76,66 @@ Game.prototype.start = function () {
     }
   };
 
+  /*this.bigEnemies.forEach(function (bigEnemy) {
+    if (this.player.didCollideBig(bigEnemy)) {
+      this.player.removeLife();
+      console.log("lives", this.player.lives);
+      //Move the enemy offscreen
+      bigEnemy.x = 0 - bigEnemy.size;
+
+      if (this.player.lives > 0) {
+        this.crashSoundBig.currentTime = 0;
+        this.crashSoundBig.volume = 0.2;
+        // this.crashSoundBig.play();
+      } else if (this.player.lives === 0) {
+        this.gameOver();
+      }
+    }
+  }, this);*/
+
   document.body.addEventListener("keydown", this.handleKeyDown.bind(this));
 
   // Start the canvas requestAnimationFrame loop
   this.startLoop();
 };
 
-Game.prototype.createObstacle = function (source) {
-  var randomX = this.canvas.width * Math.random();
-  var newBlock = new Obstacle(this.canvas, randomX, 2, source);
-  this.obstacles.push(newBlock);
+function getRandomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+Game.prototype.createObstacle = function () {
+  // var randomX = this.canvas.width * Math.random();
+
+  const startRange = 100;
+  const endRange = this.canvas.width - 200;
+  const holeX = getRandomNumber(startRange, endRange);
+  const HOLE_WIDTH = 100;
+
+  const leftBlockX = 0;
+  const leftBlockWidth = holeX;
+
+  const rightBlockX = holeX + HOLE_WIDTH;
+  const rightBlockWidth = this.canvas.width - (holeX + HOLE_WIDTH);
+
+  const newBlockLeft = new Obstacle(this.canvas, 2, leftBlockX, leftBlockWidth);
+  const newBlockRight = new Obstacle(
+    this.canvas,
+    2,
+    rightBlockX,
+    rightBlockWidth
+  );
+
+  //const newBlock = new Obstacle(this.canvas, 5, randomX, width);
+  this.obstacles.push(newBlockLeft, newBlockRight);
+
+  //remove blocks
 };
 
-// Game.prototype.createBigEnemy = function (source) {
-//   var randomX = this.canvas.width * Math.random();
-//   var newBigEnemy = new BigEnemy(this.canvas, randomX, 1, source);
-//   this.bigEnemies.push(newBigEnemy);
-// };
+Game.prototype.createBigEnemy = function (source) {
+  var randomX = this.canvas.width * Math.random();
+  var newBigEnemy = new BigEnemy(this.canvas, randomX, 1, source);
+  this.bigEnemies.push(newBigEnemy);
+};
 
 Game.prototype.createEnemy = function (source) {
   var randomX = this.canvas.width * Math.random();
@@ -109,7 +154,7 @@ Game.prototype.startLoop = function () {
   var loop = function () {
     // 1. Create new Big enemies with set time intervals
     this.counter++;
-    console.log(this.counter);
+    // console.log(this.counter);
 
     // if (this.counter % 200 === 0) {
     //   // 60times/sec ==> 3.2sec
@@ -127,17 +172,18 @@ Game.prototype.startLoop = function () {
     //   // this.createBigEnemy("");
     // }
 
-    if (Math.random() > 0.999) {
+    //speed of the obstacle
+    if (this.counter % 80 === 0) {
+      this.createObstacle();
+
       // this.createFastEnemy("./img/pokeball.png");
-    } else if (Math.random() > 0.99) {
-      // this.createFastEnemy("./img/pokeball.png");
-      // } else if (Math.random() > 0.997) {
+    } /*else if (Math.random() > 0.997) {
       //   this.createFastEnemy("");
       // } else if (Math.random() > 0.993) {
       //   this.createEnemy("");
       // } else if (Math.random() > 0.998) {
       //   this.createEnemy("");
-    }
+    }*/
     //change color if lives is < 4
     if (this.player.lives <= 3) {
       document
@@ -151,13 +197,27 @@ Game.prototype.startLoop = function () {
 
     //Checks if enemies hit the player
     this.checkCollisions();
-
+    this.checkTopCollide();
     //Checks if bullets hits the enemies
     // if (this.bullets.length > 0 && this.enemies.length > 0) {
     //   this.checkbulletEnemyCollisions();
     // }
 
     //Keeps player inside the frame
+    for (let i = 0; i < this.obstacles.length; i++) {
+      const obstacle = this.obstacles[i];
+
+      if (this.player.didCollideObstacle(obstacle)) {
+        this.player.setDirectionY("up", obstacle);
+        break;
+      } else {
+        this.player.setDirectionY("down", obstacle);
+      }
+    }
+
+    // this.player.updatePosition();
+    this.player.updatePositionY();
+    this.player.updatePositionX();
     this.player.handleScreenCollision();
     //Keeps player inside the frame
     // this.shooter.handleScreenCollision();
@@ -165,7 +225,8 @@ Game.prototype.startLoop = function () {
     //Check if any enemy is going off the screen
     this.obstacles = this.obstacles.filter(function (obstacle) {
       obstacle.updatePosition();
-      return obstacles.isInsideScreen();
+      //return obstacle.isInsideScreen();
+      return true;
     });
 
     this.enemies = this.enemies.filter(function (enemy) {
@@ -204,10 +265,10 @@ Game.prototype.startLoop = function () {
     );
     this.player.draw();
 
-    // this.obstacle.forEach(function (obstacles) {
-    //   obstacles.draw();
-    // });
-    console.log("Im here!");
+    this.obstacles.forEach(function (oneObstacle) {
+      oneObstacle.draw();
+    });
+    // console.log("Im here!");
     // this.enemies.forEach(function (enemy) {
     //   enemy.draw();
     // });
@@ -227,7 +288,7 @@ Game.prototype.startLoop = function () {
     // 4. TERMINATE LOOP IF GAME IS OVER
     if (!this.gameIsOver) {
       window.requestAnimationFrame(loop);
-    }
+    } else gameOver(score);
 
     this.updateGamesStats();
   }.bind(this);
@@ -333,13 +394,15 @@ Game.prototype.updateGamesStats = function () {
 Game.prototype.gameOver = function () {
   this.gameIsOver = true;
 
-  this.onGameOverCallback();
+  gameOver(game.score);
 };
 
 Game.prototype.removeGameScreen = function () {
   this.gameScreen.remove();
 };
 
-Game.prototype.passGameOverCallback = function (gameOver) {
-  this.onGameOverCallback = gameOver;
+Game.prototype.checkTopCollide = function () {
+  if (this.player.y <= 0) {
+    this.gameOver();
+  }
 };
