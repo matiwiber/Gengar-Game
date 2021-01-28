@@ -39,9 +39,9 @@ function createSplashScreen() {
 		</main>
 	`);
 
-  // splashScreenMusic.play();
   splashScreenMusic.currentTime = 0;
   splashScreenMusic.volume = 0.4;
+  splashScreenMusic.play("songs/pokemonSong.mp3");
 
   document.body.appendChild(splashScreen);
 

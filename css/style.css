@@ -10,7 +10,11 @@ body {
     margin: 0 auto;
   }
 }
+/* @font-face{
+  font-family: ;
+  src: url();
 
+} */
 /* SPLASH SCREEN */
 
 .splash-screen-container {
