@@ -2,8 +2,6 @@
 
 ![](https://i.imgur.com/tiFQJTm.png)
 
-
-
 ## Description
 
 "Why Gengar has to run?"... Good question. Your are gonna see why, but first, you need to know how can you help him.
@@ -14,8 +12,6 @@
 - HAVE FUN!! That's the important, and try to do your best score :)
 
 ![](https://i.imgur.com/wwuiEZR.png)
-
-
 
 ## MVP (DOM - CANVAS)
 
@@ -29,6 +25,8 @@ The Pokémon Gengar can move in 2 directions (Left & Right), has to be directed 
 4. game.js
 5. player.js
 6. obstacle.js
+7. big-enemy.js
+8. enemy.js
 
 ### 1. index.html file
 
