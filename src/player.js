@@ -11,7 +11,7 @@ class Player {
     this.direction = 0; // x - left to right
     this.directionY = 0; // y - top to bottom
     this.speedX = 6;
-    this.speedY = 6;
+    this.speedY = 4;
     this.isStanding = false;
     //for gravity
     // this.obstacle = obs;
@@ -80,8 +80,8 @@ Player.prototype.handleScreenCollision = function () {
     this.x = this.canvas.width - this.size - 15;
   }
 
-  if (this.y <= this.size + 10) {
-    this.y += this.size + 15;
+  if (this.y < 0) {
+    this.y += this.size;
   }
 };
 
