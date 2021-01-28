@@ -54,7 +54,7 @@ Game.prototype.start = function () {
   this.canvas.setAttribute("height", this.containerHeight);
 
   // Create a new player for the current game
-  this.player = new Player(this.canvas, 10);
+  this.player = new Player(this.canvas, 1);
   // // Create a new shooter for the current game
   // this.shooter = new Shooter(this.canvas);
 
@@ -365,6 +365,7 @@ Game.prototype.checkCollisions = function () {
 Game.prototype.updateGamesStats = function () {
   this.livesElement.innerHTML = this.player.lives;
   this.scoreElement.innerHTML = this.score;
+  this.score = this.score + 1;
 };
 
 // Game.prototype.createBullet = function () {
