@@ -96,7 +96,7 @@ Player.prototype.setDirectionY = function (direction, obstacle) {
   } else if (direction === "down") {
     this.isStanding = false;
     this.directionY = 1;
-    this.speedY = 1;
+    this.speedY = 3;
   }
 };
 

@@ -15,7 +15,7 @@ class Game {
     this.gameScreen = null;
     this.score = 0;
     this.backImg1 = new Image(); // Create new <img> elementgit
-    this.backImg1.src = "./Presentation/NuYQWdw.png"; // Set source path
+    this.backImg1.src = "Presentation/NuYQWdw.png"; // Set source path
     this.printBigEnemy = true;
     this.counter = 0;
     // this.bonusSound = new Audio("");
@@ -163,7 +163,7 @@ Game.prototype.startLoop = function () {
 
     /*} else*/ if (this.counter % 300 === 0) {
       console.log(this.counter);
-      this.createBigEnemy("./img/pokeball.png");
+      this.createBigEnemy("img/pokeball.png");
     } /*else if (this.counter % 450 === 0) {*/
     //   console.log(this.counter);
     //   // this.createBigEnemy("");
