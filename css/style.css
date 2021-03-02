@@ -19,7 +19,7 @@ body {
   height: 100%;
   min-height: 100%;
   min-width: 100%;
-  background-image: url(/img/evolution.png);
+  background-image: url(img/evolution.png);
   color: white;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@ body {
 
 .gameOver-screen-container {
   font-size: 2rem;
-  background-image: url(/img/pokeballW.jpg);
+  background-image: url(img/pokeballW.jpg);
   background-size: contain;
   background-position: center;
   height: 100%;
